@@ -1,0 +1,73 @@
+<?php
+
+require_once ($_SERVER["DOCUMENT_ROOT"] . "/common/global/global.inc.php");
+
+user_logout_check();
+
+if ($_COOKIE["cookie_u_accountid"] != "") {
+    $u_accountid = $_COOKIE["cookie_u_accountid"];
+    $u_accountid_save_checked = "checked=\"checked\"";
+}
+else {
+    $u_accountid = "";
+    $u_accountid_save_checked = "";    
+}
+
+// CSS
+$css_link_list = '
+    <link href="/common/bootstrap/css/signin.css" rel="stylesheet">
+';
+
+require_once ($_SERVER["DOCUMENT_ROOT"] . "/include/header.php");
+require_once ($_SERVER["DOCUMENT_ROOT"] . "/include/nav.php");
+// require_once ($_SERVER["DOCUMENT_ROOT"] . "/include/side.php");
+
+?>
+
+<div class="container">
+
+    <form class="form-signin" method="post" action="/login/login.php">
+        <input type="hidden" id="login_return_url" name="login_return_url" value="<?=$_REQUEST["login_return_url"];?>" />
+        <h2 class="form-signin-heading">WikiFlashcard</h2>                      
+        
+        <label for="u_accountid">Email</label>
+        <input type="text" id="u_accountid" name="u_accountid" value="<?=$u_accountid;?>" class="form-control" placeholder="Account ID (Email)" required autofocus />
+         
+        <label for="u_captcha">
+            Captcha: enter [<span style="color:red;"><?=get_captcha_text();?></span>] below.
+        </label>        
+        <input type="password" id="u_captcha" name="u_captcha" value="" class="form-control" placeholder="Captcha" required />
+   
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>    
+        <!--Captcha: [<strong><?=get_captcha_text();?></strong>]-->
+
+        <br />
+        <h6 class="form-signin-heading">
+            No Membership Required.<br />
+            Just Enter Email and Captcha.<br />
+        </h6>  
+    </form>
+
+</div><!-- /container -->
+
+<?php
+
+// require_once ($_SERVER["DOCUMENT_ROOT"] . "/include/footer.php");
+
+?>
+
+<script type="text/javascript">
+    
+$(document).ready(function(){
+    // 페이지 로드시 포커스
+    $("#u_accountid").focus();
+    $("#u_accountid").select();
+
+    // Captcha (보안문자) 포커스
+    $("#u_captcha").focus(function() {
+        $("#u_captcha").val("");
+        // $("#u_captcha").select();
+    });
+});
+
+</script>

@@ -1,0 +1,231 @@
+<main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+
+<form id="form_main" method="post" enctype="multipart/form-data">
+<input type="hidden" id="page" name="page" value="{page}">
+<!-- 중복실행 확인 -->
+<input type="hidden" id="duplication_tag" name="duplication_tag" value="N" />
+<!-- 중복실행 확인 -->
+
+    <ol class="breadcrumb">
+        {menu_navigator}
+    </ol>
+
+    <hr />
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row form-group">
+                <div class="col-md-2 text-center">
+                    <label class="control-label"><strong>Cardset</strong></label>
+                </div>
+                <div class="col-md-6">
+                    <select class="form-control input-sm" id="search_mf_cardset" name="search_mf_cardset">{option_search_mf_cardset}</select>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row form-group">
+                <div class="col-md-2 text-center">
+                    <label class="control-label"><strong>Keyword</strong></label>
+                </div>
+                <div class="col-md-6">
+                    <input type="search" class="form-control input-sm" id="search_keyword" name="search_keyword" value="{search_keyword}" />
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4 text-left">
+        </div>
+        <div class="col-md-4 text-center">
+            <button type="button" class="btn btn-primary" id="button_go_list">Search</button>&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-default" id="button_go_list_download">Download</button>
+        </div>
+        <div class="col-md-4 text-right">
+        </div> 
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4 text-left">
+        </div>
+        <div class="col-md-4 text-center">
+            <a class="btn btn-primary" href="{myflashcard_study_link_href}" role="button">Study My Flashcard List</a>
+        </div>
+        <div class="col-md-4 text-right">              
+        </div> 
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4 text-left">
+        </div>
+        <div class="col-md-4 text-center">
+        </div>
+        <div class="col-md-4 text-right">  
+            <a class="btn btn-info" href="{flashcard_list_link_href}" role="button">Go Flashcard List</a>         
+        </div> 
+    </div>
+
+    <br />
+
+    <div class="col-md-12 text-center">
+        <nav aria-label="Page navigation example">
+            {pagination_link_list}            
+        </nav>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            Total: {total_rows} [Page: {page}/{total_page}]
+            &nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-danger btn-sm" id="button_go_myflashcard_bundle_delete_process">Delete Selected My Flashcard</button>
+        </div> 
+    </div>
+
+    <!--<div class="table-responsive">-->
+    <div>
+        <table class="table table-bordered table-condensed table-hover table-striped">
+            <thead class="thead-inverse">
+                <tr>
+                    <th class="text-center"><input type="checkbox" id="check_all" name="check_all" value="check_all" /></th>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Cardset Name</th>
+                    <th class="text-center">Front Content</th>
+                    <th class="text-center">Back Content</th>
+                    <th class="text-center">Box Step</th>
+                    <th class="text-center">Study Time</th>
+                    <th class="text-center">Edit Flashcard</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- LOOP START row -->
+                <tr>
+                    <th class="text-center"><input type="checkbox" id="check_mf_id_{mf_id}" name="check_mf_id[]" value="{mf_id}" /></th>
+                    <td class="text-center">{no}</td>
+                    <td>{cs_setname}</td>
+                    <td>{mf_frontcontent}</td>
+                    <td>{mf_backcontent}</td>
+                    <td class="text-center"><span style="color:{color_mf_boxstep}">{mf_boxstep}</span></td>
+                    <td class="text-center">{mf_studytime}</td>
+                    <td class="text-center">{button_flashcard_edit}</td>
+                </tr>   
+                <!-- LOOP END row -->                    
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation example">
+            {pagination_link_list}            
+        </nav>
+
+    </div>
+
+</form>
+</main>
+
+<script type="text/javascript">
+    
+$(document).ready(function(){
+    // 페이지 로드시 검색어 포커스
+    $("#search_keyword").focus();   
+        
+    // 검색어 엔터키 입력
+    $("#search_keyword").on("keyup keypress", function(e) {
+        if (e.keyCode == 13) {            
+            go_list(1);
+        }
+    });
+
+    // 목록조회 버튼 클릭
+    $("#button_go_list").on("click", function() {
+        go_list(1);
+    });
+
+    // 목록다운로드 버튼 클릭
+    $("#button_go_list_download").on("click", function() {
+        go_list_download();
+    });
+
+    // 선택항목 삭제하기 (Delete) 버튼 클릭
+    $("#button_go_myflashcard_bundle_delete_process").on("click", function() {
+        go_myflashcard_bundle_delete_process();
+    });
+
+    // 체크박스 전체선택 클릭
+    $("#check_all").on("click", function() {            
+        var checked_value = $(this).prop("checked");
+        // var checked_value = $(this).is(":checked");
+        
+        checkbox_checked_all(checked_value);        
+    });
+});
+
+// Query string 구하기
+function get_search_querystring() {
+    var search_querystring = "";
+    
+    search_querystring += "&search_mf_cardset=" + $.trim($("#search_mf_cardset").val());
+    search_querystring += "&search_keyword=" + encodeURIComponent($.trim($("#search_keyword").val()));
+    search_querystring += "&page=" + $.trim($("#page").val());
+ 
+    return search_querystring;
+}
+    
+// 목록조회
+function go_list(page) {
+    $("#page").val(page);
+    
+    var search_querystring = get_search_querystring();
+    
+    var location_href = "";
+    location_href += "myflashcard_list.php?dummy=dummy";
+    location_href += search_querystring;
+    
+    $(location).attr("href", location_href);
+}
+
+// 목록다운로드
+function go_list_download() {
+    var search_querystring = get_search_querystring();
+
+    var location_href = "";
+    location_href += "myflashcard_list_download.php?dummy=dummy";
+    location_href += search_querystring;
+    
+    $(location).attr("href", location_href);
+}
+
+// 선택항목 삭제하기 (Delete)
+function go_myflashcard_bundle_delete_process() {
+        
+    if ($('input:checkbox[name="check_mf_id[]"]:checked').length <= 0) {
+        alert("Please select more than one item.");
+        return;
+    }
+    
+    // 중복실행 확인
+    if ($("#duplication_tag").val() == "Y") {
+        alert("Processing already.");        
+        return;
+    }    
+    $("#duplication_tag").val("Y");
+    
+    // form submit
+    $("#form_main").attr("target", "_self");
+    $("#form_main").attr("method", "post");
+    $("#form_main").attr("action", "myflashcard_bundle_delete_process.php");    
+    $("#form_main").submit();
+}
+
+// 체크박스 전체 선택 해제
+function checkbox_checked_all(checked_value) {
+    $('input:checkbox[name="check_mf_id[]"]').each(function() {     
+        $(this).prop("checked", checked_value);
+        // $(this).attr("checked", checked_value);
+    });
+}
+
+</script>

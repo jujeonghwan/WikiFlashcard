@@ -1,0 +1,151 @@
+<main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+
+<form id="form_main" method="post" enctype="multipart/form-data">
+<!-- 목록 페이지 관련 -->
+<input type="hidden" id="search_fc_cardset" name="search_fc_cardset" value="{search_fc_cardset}">
+<input type="hidden" id="search_keyword" name="search_keyword" value="{search_keyword}">
+<input type="hidden" id="page" name="page" value="{page}">
+<!-- 목록 페이지 관련 -->
+<input type="hidden" id="fc_id" name="fc_id" value="{fc_id}">
+<!-- 중복실행 확인 -->
+<input type="hidden" id="duplication_tag" name="duplication_tag" value="N" />
+<!-- 중복실행 확인 -->
+
+    <ol class="breadcrumb">
+        {menu_navigator}
+    </ol>
+
+    <hr />
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>Cardset Name</strong></label>
+                </div>
+                <div class="col-md-9">
+                    {cs_setname}
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>{cs_frontitemname_title}<!--Front Content--></strong></label>
+                </div>
+                <div class="col-md-9">
+                    {fc_frontcontent}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {fc_frontcontent_searchlink_button_list}
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>{cs_backitemname_title}<!--Back Content--></strong></label>
+                </div>
+                <div class="col-md-9">
+                    {fc_backcontent}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {fc_backcontent_searchlink_button_list}
+                </div>
+            </div>
+
+            <!--
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>Writer</strong></label>
+                </div>
+                <div class="col-md-9">
+                    {fc_reguser_accountid}
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>Reg Time</strong></label>
+                </div>
+                <div class="col-md-9">
+                    {fc_regtime}
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>Editor</strong></label>
+                </div>
+                <div class="col-md-9">
+                    {fc_updateuser_accountid}
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>Update Time</strong></label>
+                </div>
+                <div class="col-md-9">
+                    {fc_updatetime}
+                </div>
+            </div>
+            -->
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4 text-left">
+        </div>
+        <div class="col-md-4 text-center">
+            <a class="btn btn-primary" href="{edit_link_href}" role="button">Edit Flashcard</a>            
+        </div>
+        <div class="col-md-4 text-right">            
+        </div> 
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4 text-left">
+            <a class="btn btn-info" href="{list_link_href}" role="button">Flashcard List</a>
+            <br />&nbsp;
+        </div>
+        <div class="col-md-4 text-center">
+        </div>
+        <div class="col-md-4 text-right">    
+            <button type="button" class="btn btn-danger" id="button_go_delete_process">Delete Flashcard</button>        
+        </div> 
+    </div>
+
+</form>
+</main>
+
+<script type="text/javascript">
+    
+$(document).ready(function(){
+    // 페이지 로드시 포커스
+    // $("#fc_frontcontent").focus();   
+    
+    // 삭제하기 (Delete) 버튼 클릭
+    $("#button_go_delete_process").on("click", function() {
+        go_delete_process();
+    });     
+});
+ 
+// 삭제하기
+function go_delete_process() {        
+    if (!confirm("Do you want to delete it?")) {
+        return;
+    }
+    
+    // 중복실행 확인
+    if ($("#duplication_tag").val() == "Y") {
+        alert("Processing already.");        
+        return;
+    }    
+    $("#duplication_tag").val("Y");
+    
+    // form submit
+    $("#form_main").attr("target", "_self");
+    $("#form_main").attr("method", "post");
+    $("#form_main").attr("action", "flashcard_delete_process.php");    
+    $("#form_main").submit();
+}
+
+</script>

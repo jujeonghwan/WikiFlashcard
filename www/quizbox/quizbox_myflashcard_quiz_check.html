@@ -1,0 +1,181 @@
+<main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+
+<form id="form_main" method="post" enctype="multipart/form-data">
+<!-- 목록 페이지 관련 -->
+<input type="hidden" id="search_mf_cardset" name="search_mf_cardset" value="{search_mf_cardset}">
+<input type="hidden" id="search_mf_boxstep" name="search_mf_boxstep" value="{search_mf_boxstep}">
+<input type="hidden" id="page" name="page" value="{page}">
+<!-- 목록 페이지 관련 -->
+<input type="hidden" id="mf_id" name="mf_id" value="{mf_id}">
+<input type="hidden" id="quiz_check" name="quiz_check" value=""><!-- 정답여부 -->
+<!-- 중복실행 확인 -->
+<input type="hidden" id="duplication_tag" name="duplication_tag" value="N" />
+<!-- 중복실행 확인 -->
+
+    <ol class="breadcrumb">
+        {menu_navigator}
+    </ol>
+
+    <hr />
+
+    <!-- 박스단계 추천수량 (Box Step Recommended Quantity) -->
+    <!--
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row form-group">
+                <div class="col-md-4 text-center">
+                    <label class="control-label"><strong>Box Step Recommended Quantity</strong></label>
+                </div>
+                <div class="col-md-8">
+                    {boxstep_recommended_quantity}
+                </div>
+            </div>
+        </div>
+    </div>
+    -->
+
+    <!-- 박스단계 (Box Step) 탭 시작 -->
+    <ul class="nav nav-tabs">
+        <!-- LOOP START row_tab -->
+        <li class="nav-item">
+            <a class="nav-link {class_tab_active}" href="{tab_link}">{tab_name} [{tab_count}]</a>
+        </li>
+        <!-- LOOP END row_tab -->
+    </ul>
+    <!-- 박스단계 (Box Step) 탭 끝 -->
+
+    <br />
+
+    <div class="row">
+        <div class="col-md-12 text-right">
+            Remaining Card Count: {flashcard_total_count}<!--{current_count} / {total_count} (Current / Total)-->
+        </div> 
+    </div>
+
+    <hr />
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>Cardset Name</strong></label>
+                </div>
+                <div class="col-md-9">
+                    {cs_setname}
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>{cs_frontitemname_title}<!--Front Content--></strong></label>
+                </div>
+                <div class="col-md-6">
+                    <span>{mf_frontcontent}</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {mf_frontcontent_searchlink_button_list}
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>{cs_backitemname_title}<!--Back Content--></strong></label>
+                </div>
+                <div class="col-md-6">
+                    <span>{mf_backcontent}</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {mf_backcontent_searchlink_button_list}
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>your input</strong></label>
+                </div>
+                <div class="col-md-6">
+                    <span style="color:{color_mf_backcontent_check}">{mf_backcontent_check}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <hr />
+
+    <div class="row">
+        <div class="col-md-6 text-center">
+            <button type="button" class="btn btn-primary" id="button_go_quiz_check_right">Right Answer: To Next Step</button>
+            <br />&nbsp;
+        </div>
+        <div class="col-md-6 text-center">            
+            <button type="button" class="btn btn-danger" id="button_go_quiz_check_wrong">Wrong Answer: To Step1</button>
+        </div>     
+    </div>
+
+<!--
+    <hr />
+
+    <div class="row">
+        <div class="col-md-6 text-center">
+            {button_flashcard_edit}
+            <br />&nbsp;
+        </div>
+
+        <div class="col-md-6 text-center">            
+            {button_myflashcard_delete}
+        </div> 
+    </div>
+-->
+
+</form>
+</main>
+
+<script type="text/javascript">
+    
+$(document).ready(function(){
+    // 페이지 로드시 포커스
+    $("#button_go_quiz_check_right").focus();
+    
+    // 정답 처리 (Right Answer) 버튼 클릭
+    $("#button_go_quiz_check_right").on("click", function() {
+        go_quiz_check_right();
+    });
+
+    // 오답 처리 (Wrong Answer) 버튼 클릭
+    $("#button_go_quiz_check_wrong").on("click", function() {
+        go_quiz_check_wrong();
+    });
+});
+
+// 정답 처리 (Right Answer)
+function go_quiz_check_right() {
+    // 정답여부
+    $("#quiz_check").val("right");
+
+    // 시험확인 처리 (Quiz Check Process)
+    go_quiz_check_process();
+}
+
+// 오답 처리 (Wrong Answer)
+function go_quiz_check_wrong() {
+    // 정답여부
+    $("#quiz_check").val("wrong");
+
+    // 시험확인 처리 (Quiz Check Process)
+    go_quiz_check_process();
+}
+
+// 시험확인 처리 (Quiz Check Process)
+function go_quiz_check_process() {    
+    // 중복실행 확인
+    if ($("#duplication_tag").val() == "Y") {
+        alert("Processing already.");       
+        return;
+    }    
+    $("#duplication_tag").val("Y");
+    
+    // form submit
+    $("#form_main").attr("target", "_self");
+    $("#form_main").attr("method", "post");
+    $("#form_main").attr("action", "quizbox_myflashcard_quiz_check_process.php");    
+    $("#form_main").submit();
+}
+ 
+</script>

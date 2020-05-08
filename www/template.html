@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- favicon begin -->
+    <link rel="icon" href="/files/favicon/favicon.ico">
+    <!-- favicon end -->
+
+    <title>www.wikiflashcard.com</title>
+
+    <!--
+    ////////////////////////////////////////////////////////////////////////////////
+    // CSS 
+    -->
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+
+    <!-- http://v4-alpha.getbootstrap.com/examples/starter-template/ -->
+    <!--<link rel="stylesheet" href="/common/bootstrap/css/starter-template.css">-->
+
+    <!-- http://v4-alpha.getbootstrap.com/examples/dashboard/ -->
+    <link rel="stylesheet" href="/common/bootstrap/css/dashboard.css">
+
+    <!-- http://v4-alpha.getbootstrap.com/examples/sticky-footer-navbar/ -->
+    <link rel="stylesheet" href="/common/bootstrap/css/sticky-footer-navbar.css">
+
+    <!--
+    ////////////////////////////////////////////////////////////////////////////////
+    // JavaScript 
+    -->
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/common/bootstrap/js/ie10-viewport-bug-workaround.js"></script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+    <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">WikiFlashcard</a>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Settings</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Help</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline mt-2 mt-md-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Overview <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Reports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Analytics</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Export</a>
+                </li>
+            </ul>
+
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Nav item</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Nav item again</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">One more nav</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Another nav item</a>
+                </li>
+            </ul>
+
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Nav item again</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">One more nav</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Another nav item</a>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">WikiFlashcard</a></li>
+                <li class="breadcrumb-item"><a href="#">대메뉴</a></li>
+                <li class="breadcrumb-item"><a href="#">중메뉴</a></li>
+                <li class="breadcrumb-item active">소메뉴</li>
+            </ol>
+
+            <h1>Dashboard</h1>
+
+            <section class="row text-center placeholders">
+                <div class="col-6 col-sm-3 placeholder">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAIABAAJ12AAAACwAAAAAAQABAAACAkQBADs=" width="200" height="200" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+                    <h4>Label</h4>
+                    <div class="text-muted">Something else</div>
+                </div>
+                <div class="col-6 col-sm-3 placeholder">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAIABAADcgwAAACwAAAAAAQABAAACAkQBADs=" width="200" height="200" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+                    <h4>Label</h4>
+                    <span class="text-muted">Something else</span>
+                </div>
+                <div class="col-6 col-sm-3 placeholder">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAIABAAJ12AAAACwAAAAAAQABAAACAkQBADs=" width="200" height="200" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+                    <h4>Label</h4>
+                    <span class="text-muted">Something else</span>
+                </div>
+                <div class="col-6 col-sm-3 placeholder">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAIABAADcgwAAACwAAAAAAQABAAACAkQBADs=" width="200" height="200" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+                    <h4>Label</h4>
+                    <span class="text-muted">Something else</span>
+                </div>
+            </section>
+
+            <h2>Section title</h2>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-md-2 text-right">
+                            <label class="control-label">매입처</label>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control input-sm" id="search_p_supplycompany" name="search_p_supplycompany">{option_search_p_supplycompany}</select>
+                        </div>
+                        <div class="col-md-2">
+                            <span class="col-md-12 badge"><label class="control-label">상품구분</label></span>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control input-sm" id="search_p_producttype" name="search_p_producttype">{option_search_p_producttype}</select>
+                        </div>
+                        <div class="col-md-2">
+                            <span class="col-md-12 badge"><label class="control-label">검수유형</label></span>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control input-sm" id="search_p_checktype" name="search_p_checktype">{option_search_p_checktype}</select>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-2">
+                            <span class="col-md-12 badge"><label class="control-label">배송업체구분</label></span>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control input-sm" id="search_p_deliverysendtype" name="search_p_deliverysendtype">{option_search_p_deliverysendtype}</select>
+                        </div>
+                        <div class="col-md-2">
+                            <span class="col-md-12 badge"><label class="control-label">창고구분</label></span>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control input-sm" id="search_p_warehousetype" name="search_p_warehousetype">{option_search_p_warehousetype}</select>
+                        </div>
+                        <div class="col-md-2">
+                            <span class="col-md-12 badge"><label class="control-label">판매상태</label></span>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control input-sm" id="search_p_salestate" name="search_p_salestate">{option_search_p_salestate}</select>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-2">
+                            <span class="col-md-12 badge"><label class="control-label">검색어</label></span>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control input-sm" id="search_type" name="search_type">{option_search_type}</select>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="search" class="form-control input-sm" id="search_keyword" name="search_keyword" value="{search_keyword}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4 text-left">
+
+                    <!-- Provides extra visual weight and identifies the default -->
+                    <button type="button" class="btn btn-default">Default</button>
+                    
+                    <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                    <button type="button" class="btn btn-primary">Primary</button>
+
+                    <!-- Secondary, outline button -->
+                    <button type="button" class="btn btn-secondary">Secondary</button>
+
+                    <!-- Indicates a successful or positive action -->
+                    <button type="button" class="btn btn-success">Success</button>
+
+                    <!-- Contextual button for informational alert messages -->
+                    <button type="button" class="btn btn-info">Info</button>
+
+                    <!-- Indicates caution should be taken with this action -->
+                    <button type="button" class="btn btn-warning">Warning</button>
+
+                    <!-- Indicates a dangerous or potentially negative action -->
+                    <button type="button" class="btn btn-danger">Danger</button>
+
+                    <!-- Deemphasize a button by making it look like a link while maintaining button behavior -->
+                    <button type="button" class="btn btn-link">Link</button>
+
+                </div>
+                <div class="col-md-4 text-center">
+                    <input type="button" class="btn" id="button_go_list" value="목록조회" />
+                </div>
+                <div class="col-md-4 text-right">
+                    <a class="btn btn-info" href="/" role="button">등록하기</a>
+                </div> 
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    총 {total_rows} (페이지 {page}/{total_page})
+                </div> 
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-condensed table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th class="text-center">Header</th>
+                            <th class="text-center">Header</th>
+                            <th class="text-center">Header</th>
+                            <th class="text-center">Header</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1,001</td>
+                            <td>Lorem</td>
+                            <td>ipsum</td>
+                            <td>dolor</td>
+                            <td>sit</td>
+                        </tr>
+                        <tr>
+                            <td>1,002</td>
+                            <td>amet</td>
+                            <td>consectetur</td>
+                            <td>adipiscing</td>
+                            <td>elit</td>
+                        </tr>
+                        <tr>
+                            <td>1,003</td>
+                            <td>Integer</td>
+                            <td>nec</td>
+                            <td>odio</td>
+                            <td>Praesent</td>
+                        </tr>
+                        <tr>
+                            <td>1,003</td>
+                            <td>libero</td>
+                            <td>Sed</td>
+                            <td>cursus</td>
+                            <td>ante</td>
+                        </tr>
+                        <tr>
+                            <td>1,004</td>
+                            <td>dapibus</td>
+                            <td>diam</td>
+                            <td>Sed</td>
+                            <td>nisi</td>
+                        </tr>
+                        <tr>
+                            <td>1,005</td>
+                            <td>Nulla</td>
+                            <td>quis</td>
+                            <td>sem</td>
+                            <td>at</td>
+                        </tr>
+                        <tr>
+                            <td>1,006</td>
+                            <td>nibh</td>
+                            <td>elementum</td>
+                            <td>imperdiet</td>
+                            <td>Duis</td>
+                        </tr>
+                        <tr>
+                            <td>1,007</td>
+                            <td>sagittis</td>
+                            <td>ipsum</td>
+                            <td>Praesent</td>
+                            <td>mauris</td>
+                        </tr>
+                        <tr>
+                            <td>1,008</td>
+                            <td>Fusce</td>
+                            <td>nec</td>
+                            <td>tellus</td>
+                            <td>sed</td>
+                        </tr>
+                        <tr>
+                            <td>1,009</td>
+                            <td>augue</td>
+                            <td>semper</td>
+                            <td>porta</td>
+                            <td>Mauris</td>
+                        </tr>
+                        <tr>
+                            <td>1,010</td>
+                            <td>massa</td>
+                            <td>Vestibulum</td>
+                            <td>lacinia</td>
+                            <td>arcu</td>
+                        </tr>
+                        <tr>
+                            <td>1,011</td>
+                            <td>eget</td>
+                            <td>nulla</td>
+                            <td>Class</td>
+                            <td>aptent</td>
+                        </tr>
+                        <tr>
+                            <td>1,012</td>
+                            <td>taciti</td>
+                            <td>sociosqu</td>
+                            <td>ad</td>
+                            <td>litora</td>
+                        </tr>
+                        <tr>
+                            <td>1,013</td>
+                            <td>torquent</td>
+                            <td>per</td>
+                            <td>conubia</td>
+                            <td>nostra</td>
+                        </tr>
+                        <tr>
+                            <td>1,014</td>
+                            <td>per</td>
+                            <td>inceptos</td>
+                            <td>himenaeos</td>
+                            <td>Curabitur</td>
+                        </tr>
+                        <tr>
+                            <td>1,015</td>
+                            <td>sodales</td>
+                            <td>ligula</td>
+                            <td>in</td>
+                            <td>libero</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <span class="page-link">Previous</span>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item active">
+                            <span class="page-link">
+                                2
+                                <span class="sr-only">(current)</span>
+                            </span>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+        </main>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <div class="container text-center">
+        <span class="text-muted">jujeonghwan@gmail.com</span>
+    </div>
+</footer>
+
+</body>
+</html>
+
+
+
+
+

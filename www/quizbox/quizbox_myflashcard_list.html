@@ -1,0 +1,157 @@
+<main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+
+<form id="form_main" method="post" enctype="multipart/form-data">
+<input type="hidden" id="search_mf_boxstep" name="search_mf_boxstep" value="{search_mf_boxstep}">
+<input type="hidden" id="page" name="page" value="{page}">
+<!-- 중복실행 확인 -->
+<input type="hidden" id="duplication_tag" name="duplication_tag" value="N" />
+<!-- 중복실행 확인 -->
+
+    <ol class="breadcrumb">
+        {menu_navigator}
+    </ol>
+
+    <hr />
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row form-group">
+                <div class="col-md-4 text-center">
+                    <label class="control-label"><strong>Cardset</strong></label>
+                </div>
+                <div class="col-md-6">
+                    <select class="form-control input-sm" id="search_mf_cardset" name="search_mf_cardset">{option_search_mf_cardset}</select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 박스단계 추천수량 (Box Step Recommended Quantity) -->
+    <!--
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row form-group">
+                <div class="col-md-4 text-center">
+                    <label class="control-label"><strong>Box Step Recommended Quantity</strong></label>
+                </div>
+                <div class="col-md-8">
+                    {boxstep_recommended_quantity}
+                </div>
+            </div>
+        </div>
+    </div>
+    -->
+
+    <!-- 박스단계 (Box Step) 탭 시작 -->
+    <ul class="nav nav-tabs">
+        <!-- LOOP START row_tab -->
+        <li class="nav-item">
+            <a class="nav-link {class_tab_active}" href="{tab_link}">{tab_name} [{tab_count}]</a>
+        </li>
+        <!-- LOOP END row_tab -->
+    </ul>
+    <!-- 박스단계 (Box Step) 탭 끝 -->
+
+    <br />
+
+    <div class="row">
+        <div class="col-md-4 text-left">
+        </div>
+        <div class="col-md-4 text-center">
+            <a class="btn btn-primary" href="{quizbox_quiz_link_href}" role="button">Start Test {mf_boxstep_text} QuizBox</a>
+        </div>
+        <div class="col-md-4 text-right">              
+        </div> 
+    </div>
+
+    <br />
+
+    <div class="col-md-12 text-center">
+        <nav aria-label="Page navigation example">
+            {pagination_link_list}            
+        </nav>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            Total: {total_rows} [Page: {page}/{total_page}]           
+        </div> 
+    </div>
+
+    <!--<div class="table-responsive">-->
+    <div>
+        <table class="table table-bordered table-condensed table-hover table-striped">
+            <thead class="thead-inverse">
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Cardset Name</th>
+                    <th class="text-center">Front Content</th>
+                    <th class="text-center">Back Content</th>
+                    <!--
+                    <th class="text-center">Box Step</th>                    
+                    <th class="text-center">Test Time</th>
+                    -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- LOOP START row -->
+                <tr>
+                    <td class="text-center">{no}</td>
+                    <td>{cs_setname}</td>
+                    <td>{mf_frontcontent}</td>
+                    <td>{mf_backcontent}</td>
+                    <!--
+                    <td class="text-center"><span style="color:{color_mf_boxstep}">{mf_boxstep}</span></td>                    
+                    <td class="text-center">{mf_testtime}</td>
+                    -->
+                </tr>   
+                <!-- LOOP END row -->                    
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation example">
+            {pagination_link_list}            
+        </nav>
+
+    </div>
+
+</form>
+</main>
+
+<script type="text/javascript">
+    
+$(document).ready(function(){
+    // 페이지 로드시 검색어 포커스
+    // $("#search_keyword").focus(); 
+
+    // 카드세트 변경
+    $('select[name="search_mf_cardset"]').on("change", function() {
+        go_list(1);    
+    });  
+});
+
+// Query string 구하기
+function get_search_querystring() {
+    var search_querystring = "";
+
+    search_querystring += "&search_mf_cardset=" + $.trim($("#search_mf_cardset").val());
+    search_querystring += "&search_mf_boxstep=" + $.trim($("#search_mf_boxstep").val());
+    search_querystring += "&page=" + $.trim($("#page").val());
+
+    return search_querystring;
+}
+    
+// 목록조회
+function go_list(page) { 
+    $("#page").val(page);
+       
+    var search_querystring = get_search_querystring();
+    
+    var location_href = "";
+    location_href += "quizbox_myflashcard_list.php?dummy=dummy";
+    location_href += search_querystring;
+    
+    $(location).attr("href", location_href);
+}
+
+</script>

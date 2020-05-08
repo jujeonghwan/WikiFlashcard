@@ -1,0 +1,30 @@
+<style>
+<!--
+br {
+    mso-data-placement:same-cell;
+}
+-->
+</style>
+
+<table border="1px">
+    <tr>
+        <th>NO</th>
+        <th>Cardset Name</th>
+        
+        <th>Front Content</th>
+        <th>Back Content</th>        
+        <th>Box Step</th>
+        <th>Study Time</th>
+    </tr>    
+    <!-- LOOP START row -->
+    <tr>
+        <td align="center">{no}</td>
+        <td align="left">{cs_setname}</td>
+
+        <td align="left">{mf_frontcontent}</td>
+        <td align="left">{mf_backcontent}</td>
+        <td align="center"><span style="color:{color_mf_boxstep}">{mf_boxstep}</span></td>
+        <td align="center">{mf_studytime}</td>
+    </tr>
+    <!-- LOOP END row -->
+</table>

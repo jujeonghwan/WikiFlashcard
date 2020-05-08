@@ -1,0 +1,175 @@
+<main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+
+<form id="form_main" method="post" enctype="multipart/form-data">
+<!-- 목록 페이지 관련 -->
+<input type="hidden" id="search_fc_cardset" name="search_fc_cardset" value="{search_fc_cardset}">
+<input type="hidden" id="search_keyword" name="search_keyword" value="{search_keyword}">
+<input type="hidden" id="page" name="page" value="{page}">
+<!-- 목록 페이지 관련 -->
+<!-- 등록후 계속등록 여부 -->
+<input type="hidden" id="add_tag" name="add_tag" value="N" />
+<!-- 등록후 계속등록 여부 -->
+<!-- 중복실행 확인 -->
+<input type="hidden" id="duplication_tag" name="duplication_tag" value="N" />
+<!-- 중복실행 확인 -->
+
+    <ol class="breadcrumb">
+        {menu_navigator}
+    </ol>
+
+    <hr />
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>Cardset</strong></label>
+                </div>
+                <div class="col-md-6">
+                    <select class="form-control input-sm" id="fc_cardset" name="fc_cardset">{option_fc_cardset}</select>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-3 text-center text-muted">
+                    <label class="control-label">
+                        <strong>Last Registered Flashcard</strong><br />
+                        count : {last_fc_count}<br />
+                    </label>
+                </div>
+                <div class="col-md-6 text-muted">                    
+                    {last_fc_frontcontent}
+                    <hr />
+                    {last_fc_backcontent}
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>{cs_frontitemname_title}<!--Front Content--></strong></label>
+                </div>
+                <div class="col-md-6">
+                    <textarea class="form-control" id="fc_frontcontent" name="fc_frontcontent" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>{cs_backitemname_title}<!--Back Content--></strong></label>
+                </div>
+                <div class="col-md-6">
+                    <textarea class="form-control" id="fc_backcontent" name="fc_backcontent" rows="5"></textarea>
+                </div>
+            </div>            
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-3 text-left">
+        </div>
+        <div class="col-md-5 text-center">
+            <button type="button" class="btn btn-primary" id="button_go_add_process_add">Save Flashcard & Add Another</button>
+            <br />&nbsp;
+        </div>
+        <div class="col-md-4 text-right">   
+            <button type="button" class="btn btn-primary" id="button_go_add_process">Save Flashcard</button>
+        </div> 
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4 text-left">
+            <a class="btn btn-info" href="{list_link_href}" role="button">Flashcard List</a>
+        </div>
+        <div class="col-md-4 text-center">
+        </div>
+        <div class="col-md-4 text-right">            
+        </div> 
+    </div>
+
+</form>
+</main>
+
+
+<script type="text/javascript">
+    
+$(document).ready(function(){
+    // 페이지 로드시 포커스
+    $("#fc_frontcontent").focus(); 
+
+    // 등록저장후 계속등록 (Save & Add) 버튼 클릭
+    $("#button_go_add_process_add").on("click", function() {
+        $("#add_tag").val("Y");         // 등록후 계속등록 여부
+        go_add_process();
+    }); 
+    
+    // 등록저장 (Save) 버튼 클릭
+    $("#button_go_add_process").on("click", function() {
+        $("#add_tag").val("N");         // 등록후 계속등록 여부
+        go_add_process();
+    });
+});
+ 
+// 등록저장 (Save)
+function go_add_process() {
+    if ($.trim($("#fc_cardset").val()) == "") {        
+        alert("Please select Cardset.");
+        $("#fc_cardset").focus();
+        return;
+    }
+
+    if ($.trim($("#fc_frontcontent").val()) == "") {
+        alert("Please enter Front Content.");
+        $("#fc_frontcontent").focus();
+        return;
+    }
+
+    if ($.trim($("#fc_backcontent").val()) == "") {
+        alert("Please enter Back Content.");
+        $("#fc_backcontent").focus();
+        return;
+    }
+
+    // 플래시카드 (Flashcard) 중복체크
+    $.ajax({   
+        type: "post",
+        async: false,                   // 동기 방식
+        url: "ajax_flashcard_duplication_check.php",        
+        data: {
+            fc_cardset: $.trim($("#fc_cardset").val()),
+            fc_frontcontent: $.trim($("#fc_frontcontent").val())
+            // fc_backcontent: $.trim($("#fc_backcontent").val())
+        },       
+        success: function(data) {
+            if (data == "Y") {
+                duplication_tag = "Y";
+            }
+            else {
+                duplication_tag = "N";  
+            }
+        }  
+    }); 
+    
+    if (duplication_tag == "Y") {
+        alert("Flashcard duplicated.");
+        $("#fc_frontcontent").focus();
+        return;
+    }
+    
+    // 중복실행 확인
+    if ($("#duplication_tag").val() == "Y") {
+        alert("Processing already.");        
+        return;
+    }    
+    $("#duplication_tag").val("Y");
+    
+    // form submit
+    $("#form_main").attr("target", "_self");
+    $("#form_main").attr("method", "post");
+    $("#form_main").attr("action", "flashcard_add_process.php");    
+    $("#form_main").submit();
+}
+
+</script>

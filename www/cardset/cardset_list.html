@@ -1,0 +1,151 @@
+<main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+    <ol class="breadcrumb">
+        {menu_navigator}
+    </ol>
+
+    <hr />
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row form-group">
+                <div class="col-md-2 text-center">
+                    <label class="control-label"><strong>검색어 (Keyword)</strong></label>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control input-sm" id="search_type" name="search_type">{option_search_type}</select>
+                </div>
+                <div class="col-md-4">
+                    <input type="search" class="form-control input-sm" id="search_keyword" name="search_keyword" value="{search_keyword}" />
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4 text-left">
+        </div>
+        <div class="col-md-4 text-center">
+            <button type="button" class="btn btn-primary" id="button_go_list">검색하기 (Search)</button>
+        </div>
+        <div class="col-md-4 text-right">
+        </div> 
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4 text-left">
+        </div>
+        <div class="col-md-4 text-center">
+        </div>
+        <div class="col-md-4 text-right">            
+            <a class="btn btn-info" href="{add_link_href}" role="button">등록하기 (Add)</a>
+        </div> 
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            총(Total) {total_rows} [페이지(Page) {page}/{total_page}]
+        </div> 
+    </div>
+
+    <!--<div class="table-responsive">-->
+    <div>
+        <table class="table table-bordered table-condensed table-hover table-striped">
+            <thead class="thead-inverse">
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">세트명<br />(Cardset Name)</th>
+                    <th class="text-center">앞면항목명<br />(Front Item Name)</th>
+                    <th class="text-center">뒷면항목명<br />(Back Item Name)</th>
+                    <!--
+                    <th class="text-center">등록일시<br />(Reg Time)</th>
+                    <th class="text-center">수정일시<br />(Update Time)</th>
+                    -->
+                </tr>
+                <!--
+                <tr>
+                    <th class="text-center">학습하기<br />(Study Flashcard)</th>
+                    <th class="text-center">플래시카드 관리<br />(Manage Flashcard)</th>
+                    <th class="text-center">내 플래시카드 추가<br />(Add To My Flashcard)</th>
+                </tr>
+                -->
+            </thead>
+            <tbody>
+                <!-- LOOP START row -->
+                <tr>
+                    <td class="text-center" rowspan="2">{no}</td>
+                    <td><a href="{view_link_href}">{cs_setname}</a></td>
+                    <td>{cs_frontitemname}</td>
+                    <td>{cs_backitemname}</td>
+                    <!--
+                    <td class="text-center">{cs_regtime}</td>
+                    <td class="text-center">{cs_updatetime}</td>
+                    -->
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        <a href="{study_link_href}" class="btn btn-primary">학습하기 (Study Flashcard)</a>
+                    </td>
+                    <td class="text-center">
+                        <a href="{flashcard_view_link_href}" class="btn btn-info">플래시카드 관리 (Manage Flashcard)</a>
+                    </td>
+                    <td class="text-center">
+                        <a href="{myflashcard_add_link_href}" class="btn btn-success">내 플래시카드 추가 (Add To My Flashcard)</a>
+                    </td>
+                </tr>   
+                <!-- LOOP END row -->                    
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation example">
+            {pagination_link_list}            
+        </nav>
+
+    </div>
+</main>
+
+<script type="text/javascript">
+    
+$(document).ready(function(){
+    // 페이지 로드시 검색어 포커스
+    $("#search_keyword").focus();   
+        
+    // 검색어 엔터키 입력
+    $("#search_keyword").on("keyup keypress", function(e) {
+        if (e.keyCode == 13) {            
+            go_list(1);
+        }
+    });
+
+    // 목록조회 버튼 클릭
+    $("#button_go_list").on("click", function() {
+        go_list(1);
+    });
+});
+
+// Query string 구하기
+function get_search_querystring() {
+    var search_querystring = "";
+    
+    search_querystring += "&search_type=" + $.trim($("#search_type").val());
+    search_querystring += "&search_keyword=" + encodeURIComponent($.trim($("#search_keyword").val()));
+    search_querystring += "&page=" + $.trim($("#page").val());
+ 
+    return search_querystring;
+}
+    
+// 목록조회
+function go_list(page) {
+    $("#page").val(page);
+    
+    var search_querystring = get_search_querystring();
+    
+    var location_href = "";
+    location_href += "cardset_list.php?dummy=dummy";
+    location_href += search_querystring;
+    
+    $(location).attr("href", location_href);
+}
+
+</script>

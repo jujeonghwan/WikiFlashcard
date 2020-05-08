@@ -1,0 +1,194 @@
+<main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+
+<form id="form_main" method="post" enctype="multipart/form-data">
+<!-- 목록 페이지 관련 -->
+<input type="hidden" id="search_keyword" name="search_keyword" value="{search_keyword}">
+<input type="hidden" id="page" name="page" value="{page}">
+<!-- 목록 페이지 관련 -->
+<input type="hidden" id="cs_id" name="cs_id" value="{cs_id}">
+<!-- 중복실행 확인 -->
+<input type="hidden" id="duplication_tag" name="duplication_tag" value="N" />
+<!-- 중복실행 확인 -->
+
+    <ol class="breadcrumb">
+        {menu_navigator}
+    </ol>
+
+    <hr />
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>Cardset Name</strong></label>
+                </div>
+                <div class="col-md-9">
+                    <strong>{cs_setname}</strong>
+                    <br /><br />
+                    <a href="{study_link_href}" class="btn btn-primary">Study Flashcard</a>
+                </div>
+            </div>
+
+            <!--
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>Front Item Name</strong></label>
+                </div>
+                <div class="col-md-9">
+                    {cs_frontitemname}
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>Back Item Name</strong></label>
+                </div>
+                <div class="col-md-9">
+                    {cs_backitemname}
+                </div>
+            </div>
+
+            
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>Writer</strong></label>
+                </div>
+                <div class="col-md-9">
+                    {cs_reguser_accountid}
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>Reg Time</strong></label>
+                </div>
+                <div class="col-md-9">
+                    {cs_regtime}
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>Editor</strong></label>
+                </div>
+                <div class="col-md-9">
+                    {cs_updateuser_accountid}
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>Update Time</strong></label>
+                </div>
+                <div class="col-md-9">
+                    {cs_updatetime}
+                </div>
+            </div>
+            -->
+
+            
+
+            <hr />
+
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>Flashcard Count</strong></label>
+                </div>
+                <div class="col-md-9">
+                    {flashcard_count}
+                    &nbsp;&nbsp;&nbsp;
+                    <a href="{flashcard_view_link_href}" class="btn btn-info">Manage Flashcard</a>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>My Flashcard Count</strong></label>
+                </div>
+                <div class="col-md-9">
+                    {myflashcard_count}
+                    &nbsp;&nbsp;&nbsp;
+                    <a href="{myflashcard_add_link_href}" class="btn btn-success">Add To My Flashcard</a>
+                </div>
+            </div>        
+
+            <!--
+            <hr />
+
+            <div class="row form-group">
+                <div class="col-md-4 text-center">
+                    <a href="{study_link_href}" class="btn btn-primary">Study Flashcard</a>
+                    <br /><br />
+                </div>
+                <div class="col-md-4 text-center">
+                    <a href="{flashcard_view_link_href}" class="btn btn-info">Manage Flashcard</a>
+                    <br /><br />
+                </div>
+                <div class="col-md-4 text-center">
+                    <a href="{myflashcard_add_link_href}" class="btn btn-success">Add To My Flashcard</a>
+                    <br /><br />
+                </div>
+            </div>   
+            --> 
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4 text-left">
+        </div>
+        <div class="col-md-4 text-center">
+            <a class="btn btn-primary" href="{edit_link_href}" role="button">Edit Cardset</a>            
+        </div>
+        <div class="col-md-4 text-right">            
+        </div> 
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4 text-left">
+            <a class="btn btn-info" href="{list_link_href}" role="button">Cardset List</a>
+            <br />&nbsp;
+        </div>
+        <div class="col-md-4 text-center">
+        </div>
+        <div class="col-md-4 text-right">    
+            <button type="button" class="btn btn-danger" id="button_go_delete_process">Delete Cardset</button>        
+        </div> 
+    </div>
+
+</form>
+</main>
+
+<script type="text/javascript">
+    
+$(document).ready(function(){
+    // 페이지 로드시 포커스
+    // $("#cs_setname").focus();   
+    
+    // 삭제하기 (Delete) 버튼 클릭
+    $("#button_go_delete_process").on("click", function() {
+        go_delete_process();
+    });     
+});
+ 
+// 삭제하기
+function go_delete_process() {        
+    if (!confirm("Do you want to delete it?")) {
+        return;
+    }
+    
+    // 중복실행 확인
+    if ($("#duplication_tag").val() == "Y") {
+        alert("Processing already.");        
+        return;
+    }    
+    $("#duplication_tag").val("Y");
+    
+    // form submit
+    $("#form_main").attr("target", "_self");
+    $("#form_main").attr("method", "post");
+    $("#form_main").attr("action", "cardset_delete_process.php");    
+    $("#form_main").submit();
+}
+
+</script>

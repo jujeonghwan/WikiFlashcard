@@ -1,0 +1,181 @@
+<main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+
+<form id="form_main" method="post" enctype="multipart/form-data">
+<!-- 목록 페이지 관련 -->
+<input type="hidden" id="search_keyword" name="search_keyword" value="{search_keyword}">
+<input type="hidden" id="page" name="page" value="{page}">
+<!-- 목록 페이지 관련 -->
+<input type="hidden" id="cs_id" name="cs_id" value="{cs_id}">
+<!-- 중복실행 확인 -->
+<input type="hidden" id="duplication_tag" name="duplication_tag" value="N" />
+<!-- 중복실행 확인 -->
+
+    <ol class="breadcrumb">
+        {menu_navigator}
+    </ol>
+
+    <hr />
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>Cardset Name</strong></label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" class="form-control input-sm" id="cs_setname" name="cs_setname" value="{cs_setname}" maxlength="250" />
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>Front Item Name</strong></label>
+                </div>
+                <div class="col-md-6">
+                    <textarea class="form-control" id="cs_frontitemname" name="cs_frontitemname" rows="3">{cs_frontitemname}</textarea>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>Back Item Name</strong></label>
+                </div>
+                <div class="col-md-6">
+                    <textarea class="form-control" id="cs_backitemname" name="cs_backitemname" rows="3">{cs_backitemname}</textarea>
+                </div>
+            </div>
+
+            <!--
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>Writer</strong></label>
+                </div>
+                <div class="col-md-9">
+                    {cs_reguser_accountid}
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>Reg Time</strong></label>
+                </div>
+                <div class="col-md-9">
+                    {cs_regtime}
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>Editor</strong></label>
+                </div>
+                <div class="col-md-9">
+                    {cs_updateuser_accountid}
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3 text-center">
+                    <label class="control-label"><strong>Update Time</strong></label>
+                </div>
+                <div class="col-md-9">
+                    {cs_updatetime}
+                </div>
+            </div>
+            -->
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4 text-left">
+        </div>
+        <div class="col-md-4 text-center">
+            <button type="button" class="btn btn-primary" id="button_go_edit_process">Save Cardset</button>
+        </div>
+        <div class="col-md-4 text-right">            
+        </div> 
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4 text-left">
+            <a class="btn btn-info" href="{view_link_href}" role="button">Return To Cardset View</a>
+        </div>
+        <div class="col-md-4 text-center">
+        </div>
+        <div class="col-md-4 text-right">            
+        </div> 
+    </div>
+
+</form>
+</main>
+
+<script type="text/javascript">
+    
+$(document).ready(function(){
+    // 페이지 로드시 포커스
+    $("#cs_setname").focus();   
+    
+    // 수정저장 (Save) 버튼 클릭
+    $("#button_go_edit_process").on("click", function() {
+        go_edit_process();
+    });     
+});
+ 
+// 수정저장 (Save)
+function go_edit_process() {
+    if ($.trim($("#cs_setname").val()) == "") {
+        alert("Please enter Cardset Name.");
+        $("#cs_setname").focus();
+        return;
+    }
+
+    // 세트명 (Cardset Name) 중복체크
+    $.ajax({   
+        type: "post",
+        async: false,                   // 동기 방식
+        url: "ajax_cardset_cs_setname_duplication_check.php",        
+        data: {
+            cs_id: $.trim($("#cs_id").val()),
+            cs_setname: $.trim($("#cs_setname").val())
+        },       
+        success: function(data) {
+            if (data == "Y") {
+                duplication_tag = "Y";
+            }
+            else {
+                duplication_tag = "N";  
+            }
+        }  
+    }); 
+    
+    if (duplication_tag == "Y") {
+        alert("Cardset Name duplicated.");
+        $("#cs_setname").focus();
+        return;
+    }
+    
+    if ($.trim($("#cs_frontitemname").val()) == "") {
+        alert("Please enter Front Item Name.");
+        $("#cs_frontitemname").focus();
+        return;
+    }
+    
+    if ($.trim($("#cs_backitemname").val()) == "") {
+        alert("Please enter Back Item Name.");
+        $("#cs_backitemname").focus();
+        return;
+    }
+    
+    // 중복실행 확인
+    if ($("#duplication_tag").val() == "Y") {
+        alert("Processing already.");        
+        return;
+    }    
+    $("#duplication_tag").val("Y");
+    
+    // form submit
+    $("#form_main").attr("target", "_self");
+    $("#form_main").attr("method", "post");
+    $("#form_main").attr("action", "cardset_edit_process.php");    
+    $("#form_main").submit();
+}
+
+</script>

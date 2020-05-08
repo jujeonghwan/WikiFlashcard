@@ -1,0 +1,80 @@
+
+<nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+    <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">
+        [WikiFlashcard]<br />
+        <h6><i>Free Flashcard / Learning Card / Quiz Box</i></h6>
+    </a>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <!-- 드롭다운 메뉴 형태 표시 시작 -->
+            <!-- LOOP START row_dropdown_nav -->
+<!--
+            <li class="nav-item dropdown {class_nav_active}">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown_{nav_no}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{nav_menu_name_1} {span_nav_current}</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown_{nav_no}">
+-->
+                    <!-- LOOP START row_dropdown_nav_sub -->    
+<!--
+                    <a class="dropdown-item" href="{nav_menu_link_3}">{nav_menu_name_2}</a>
+-->
+                    <!-- LOOP END row_dropdown_nav_sub -->
+<!--
+                </div>
+            </li>
+-->
+            <!-- LOOP END row_dropdown_nav -->
+            <!-- 드롭다운 메뉴 형태 표시 끝 -->
+
+            <!-- 중(Step2) 메뉴 형태 표시 시작 -->
+            <!-- LOOP START row_step2_nav -->
+            <li class="nav-item {class_nav_active}">
+                <a class="nav-link" href="{nav_menu_link_3}">{nav_menu_name_2} {span_nav_current}</a>
+            </li>
+            <!-- LOOP END row_step2_nav -->
+            <!-- 중(Step2) 메뉴 형태 표시 끝 -->
+        </ul>
+
+
+        <!-- 딜리버리트래킹 링크 -->
+        <!--
+        <ul class="navbar-nav mt-2 mt-md-0">
+            <li class="nav-item">
+                <a class="nav-link" href="http://www.deliverytracking.kr/" target="_blank">[딜리버리트래킹] 택배사 통합배송조회</a>
+            </li>
+        </ul>
+        -->
+        <!-- 딜리버리트래킹 링크 -->    
+        
+        
+        <!-- 드롭다운 로그인 표시 시작 -->
+        <ul class="navbar-nav mt-2 mt-md-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown_user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">[{session_u_accountid}]</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown_user">
+                    <!-- LOOP START row_nav_sub -->  
+                    <a class="dropdown-item" href="{user_login_logout_url}">{user_login_logout_text}</a>
+                    <!-- LOOP END row_nav_sub -->
+                    <!-- Login(로그인) / Logout(로그아웃) -->
+                </div>
+            </li>
+        </ul>
+        <!-- 드롭다운 로그인 표시 끝 -->
+
+        <!-- 일반 로그인 표시 시작 -->   
+        <!--     
+        <ul class="navbar-nav mt-2 mt-md-0">
+            <li class="nav-item">
+                <a class="nav-link" href="{user_login_logout_url}">{user_login_logout_text}</a>
+            </li>
+        </ul>
+        <span class="navbar-text">
+            [{session_u_accountid}]
+        </span>
+        -->
+        <!-- 일반 로그인 표시 끝 -->
+    </div>
+</nav>

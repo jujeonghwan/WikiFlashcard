@@ -1,0 +1,88 @@
+<main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+
+<form id="form_main" method="post" enctype="multipart/form-data">
+
+    <ol class="breadcrumb">
+        {menu_navigator}
+    </ol>
+
+    <!--
+    <hr />
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row form-group">
+                <div class="col-md-12 text-center">
+                    <label class="control-label"><strong>세트명 (Cardset Name) [ {cs_setname} ]</strong></label>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-12 text-center">
+                    <label class="control-label"><strong>1. 앞면항목명 (Front Item Name) {cs_frontitemname}</strong></label>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-12 text-center">
+                    <label class="control-label"><strong>2. 뒷면항목명 (Back Item Name) {cs_backitemname}</strong></label>
+                </div>
+            </div>
+        </div>
+    </div>
+    -->
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-1 text-center">   
+        </div>
+        <div class="col-md-4 text-center">   
+            <a href="{study_sorttype_1_link_href}" class="btn btn-primary">Study Ascend</a>   
+        </div>
+        <div class="col-md-2 text-center">   
+            &nbsp;
+        </div>
+        <div class="col-md-4 text-center">            
+            <a href="{study_sorttype_2_link_href}" class="btn btn-info">Study Descend</a>        
+        </div> 
+        <div class="col-md-1 text-center">   
+        </div>
+    </div>
+
+</form>
+</main>
+
+<script type="text/javascript">
+    
+$(document).ready(function(){
+    // 페이지 로드시 포커스
+    // $("#fc_frontcontent").focus();   
+    
+    // 학습하기 (Study Flashcard)
+    $("#button_go_study").on("click", function() {
+        go_study();
+    });
+});
+
+// 학습하기 (Study Flashcard)
+function go_study() {
+    if ($('input:radio[name="sorttype"]').is(":checked") == false) {
+        alert("Please select Sort.");
+        $('input:radio[name="sorttype"]').first().focus();
+        return;
+    }
+
+    // 중복실행 확인
+    if ($("#duplication_tag").val() == "Y") {
+        alert("Processing already.");        
+        return;
+    }    
+    $("#duplication_tag").val("Y");
+    
+    // form submit
+    $("#form_main").attr("target", "_self");
+    $("#form_main").attr("method", "post");
+    $("#form_main").attr("action", "myflashcard_study.php");    
+    $("#form_main").submit();
+}
+ 
+</script>

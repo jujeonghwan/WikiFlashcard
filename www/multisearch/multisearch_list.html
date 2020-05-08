@@ -1,0 +1,107 @@
+<main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+
+<form id="form_main" method="post" enctype="multipart/form-data">
+<input type="hidden" id="search_ms_type" name="search_ms_type" value="{search_ms_type}">
+<!-- 중복실행 확인 -->
+<input type="hidden" id="duplication_tag" name="duplication_tag" value="N" />
+<!-- 중복실행 확인 -->
+
+    <ol class="breadcrumb">
+        {menu_navigator}
+    </ol>
+
+    <hr />
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row form-group">
+                <div class="col-md-2 text-center">
+                    <label class="control-label"><strong>Keyword</strong></label>
+                </div>
+                <div class="col-md-6">
+                    <input type="search" class="form-control input-sm" id="search_keyword" name="search_keyword" value="{search_keyword}" />
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4 text-left">
+        </div>
+        <div class="col-md-4 text-center">
+            <button type="button" class="btn btn-primary" id="button_go_list">Search</button>
+        </div>
+        <div class="col-md-4 text-right">
+        </div> 
+    </div>
+
+    <br />
+
+    <!-- Multi Search Type 탭 시작 -->
+    <ul class="nav nav-tabs">
+        <!-- LOOP START row_tab -->
+        <li class="nav-item">
+            <a class="nav-link {class_tab_active}" href="{tab_link}">{tab_name}</a>
+        </li>
+        <!-- LOOP END row_tab -->
+    </ul>
+    <!-- Multi Search Type 탭 끝 -->
+
+    <br />
+
+    <div class="row">
+<!--
+        <div class="col-md-12 text-left">
+            <xmp>{multisearch_url}</xmp>
+        </div>
+-->
+        <div class="col-md-12 text-left">
+            <iframe src="{multisearch_url}" width="100%" height="2000px" frameborder="0" scrolling="auto" marginwidth="0" marginheight="0"></iframe>
+        </div>
+    </div>
+
+</form>
+</main>
+
+<script type="text/javascript">
+    
+$(document).ready(function(){
+    // 페이지 로드시 검색어 포커스
+    $("#search_keyword").focus();   
+        
+    // 검색어 엔터키 입력
+    $("#search_keyword").on("keyup keypress", function(e) {
+        if (e.keyCode == 13) {            
+            go_list();
+        }
+    });
+
+    // 목록조회 버튼 클릭
+    $("#button_go_list").on("click", function() {
+        go_list();
+    });
+});
+
+// Query string 구하기
+function get_search_querystring() {
+    var search_querystring = "";
+
+    search_querystring += "&search_ms_type=" + $.trim($("#search_ms_type").val());
+    search_querystring += "&search_keyword=" + encodeURIComponent($.trim($("#search_keyword").val()));
+    
+    return search_querystring;
+}
+    
+// 목록조회
+function go_list() { 
+       
+    var search_querystring = get_search_querystring();
+    
+    var location_href = "";
+    location_href += "multisearch_list.php?dummy=dummy";
+    location_href += search_querystring;
+    
+    $(location).attr("href", location_href);
+}
+
+</script>
